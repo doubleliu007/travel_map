@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import ChinaMap from './components/ChinaMap';
 import type { CityInfo } from './components/ChinaMap';
 import Sidebar from './components/Sidebar';
@@ -39,6 +40,7 @@ function App() {
           onCityMapReady={handleCityMapReady}
         />
       </main>
+      <Analytics />
     </div>
   );
 }
