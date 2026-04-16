@@ -19,6 +19,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #1a1a2e;
   background: #f5f7fa;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 #root {
