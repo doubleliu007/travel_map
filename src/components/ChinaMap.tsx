@@ -18,7 +18,7 @@ interface CityMeta {
   province: string;
 }
 
-const GEO_BASE = 'https://geo.datav.aliyun.com/areas_v3/bound';
+const GEO_BASE = '/geo';
 const MAP_NAME = 'china-cities';
 
 const WHOLE_REGION_ADCODES = new Set([
