@@ -1,4 +1,6 @@
+import { useCallback, useState } from 'react';
 import ChinaMap from './components/ChinaMap';
+import type { CityInfo } from './components/ChinaMap';
 import Sidebar from './components/Sidebar';
 import { useVisitedCities } from './hooks/useVisitedCities';
 import './App.css';
@@ -13,12 +15,20 @@ function App() {
     getVisitedCitiesByProvince,
   } = useVisitedCities();
 
+  const [allCities, setAllCities] = useState<CityInfo[]>([]);
+
+  const handleCityMapReady = useCallback((cities: CityInfo[]) => {
+    setAllCities(cities);
+  }, []);
+
   return (
     <div className="app">
       <Sidebar
         visited={visited}
         totalCities={totalCities}
         onClear={clearAll}
+        onToggleCity={toggleCity}
+        allCities={allCities}
         getVisitedCountByProvince={getVisitedCountByProvince}
         getVisitedCitiesByProvince={getVisitedCitiesByProvince}
       />
@@ -26,6 +36,7 @@ function App() {
         <ChinaMap
           visited={visited}
           onToggleCity={toggleCity}
+          onCityMapReady={handleCityMapReady}
         />
       </main>
     </div>

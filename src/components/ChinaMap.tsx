@@ -3,9 +3,15 @@ import * as echarts from 'echarts';
 import { PROVINCES } from '../data/provinces';
 import type { VisitedData } from '../types';
 
+export interface CityInfo {
+  name: string;
+  province: string;
+}
+
 interface ChinaMapProps {
   visited: VisitedData;
   onToggleCity: (cityName: string, province: string) => void;
+  onCityMapReady?: (cities: CityInfo[]) => void;
 }
 
 interface CityMeta {
@@ -115,7 +121,7 @@ async function loadAllData(
   return { geoJSON, cityMap, provinceBorders };
 }
 
-export default function ChinaMap({ visited, onToggleCity }: ChinaMapProps) {
+export default function ChinaMap({ visited, onToggleCity, onCityMapReady }: ChinaMapProps) {
   const chartRef = useRef<HTMLDivElement>(null);
   const chartInstance = useRef<echarts.ECharts | null>(null);
   const cityMapRef = useRef<Map<string, CityMeta>>(new Map());
@@ -139,6 +145,7 @@ export default function ChinaMap({ visited, onToggleCity }: ChinaMapProps) {
         bordersRef.current = provinceBorders;
         echarts.registerMap(MAP_NAME, geoJSON);
         setMapReady(true);
+        onCityMapReady?.(Array.from(cityMap.entries()).map(([name, meta]) => ({ name, province: meta.province })));
       } catch (e) {
         console.error('Failed to load map data:', e);
       } finally {
@@ -153,6 +160,7 @@ export default function ChinaMap({ visited, onToggleCity }: ChinaMapProps) {
       bordersRef.current = cachedProvinceBorders!;
       setLoading(false);
       setMapReady(true);
+      onCityMapReady?.(Array.from(cachedCityMap!.entries()).map(([name, meta]) => ({ name, province: meta.province })));
     }
     return () => { cancelled = true; };
   }, []);
