@@ -15,6 +15,10 @@
 - **地图交互**：支持滚轮缩放、拖拽移动，缩放后点击不会重置视图
 - **直辖市/特别行政区整体显示**：北京、上海、天津、重庆、台湾、香港、澳门作为整体区域展示
 
+## 在线示例
+
+[https://www.doubleliu.com.cn/](https://www.doubleliu.com.cn/)
+
 ## 技术栈
 
 - React 19 + TypeScript
